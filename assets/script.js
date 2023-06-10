@@ -13,6 +13,10 @@ var wind= document.getElementById ("wind");
 var humidity= document.getElementById ("humidity");
 var nextWeather= document.getElementById ("nextWeather");
 var nextWeatherContainer= document.getElementById ("nextWeatherContainer");
+var nextDate = document.getElementById("nextDate");
+var nextTemp = document.getElementById("nextTemp");
+var nextWind = document.getElementById("nextWind");
+var nextHumidity = document.getElementById("nextHumidity");
 
 // event listener to trigger the next set of functions
 submitBtn.addEventListener("click", function () {
@@ -70,11 +74,30 @@ console.log (displayCurrentWeather);
 //fba06e5080ea71f1a51acc6fdb02dafb
 // 5 day weather forecast API Key
 
-//api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
+//api.openweathermap.org/data/2.5/forecast/daily?lat={lat}&lon={lon}&cnt={cnt}&appid={API key}
 // 5 Day API call lat, lon
 
 //http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}
 //5 Day API call geocode 
+
+// function to get coordinates using the API call 
+function getCoords(city) {
+    var url = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&appid=fba06e5080ea71f1a51acc6fdb02dafb"
+    console.log(url);
+
+    fetch(url)
+        .then(function (response) {
+            return response.json();
+
+        }).then(function (data) {
+            getCurrentWeather(data[0].lat, data[0].lon);
+            getNextWeather(data[0].lat, data[0].lon);
+
+            console.log(data[0].lat);
+        })
+
+}
+
 
 // function to display 5 day forecast in nextWeatherContainer
 function getNextWeather(lat, lon) {
@@ -98,7 +121,7 @@ var displayNextWeather= function (data){
     for (let i = 0; i < data.list.length; i++) {
         var forecastPeriod= document.createElement("section");
         forecastPeriod.innerHTML = `
-        <h2>${dayjs.unix(data.list[i].dt).format('MM/DD/YYYY HH:mm')}</h2>
+        <h2>${dayjs.unix(data.list[i].dt).format('MM/DD/YYYY')}</h2>
         <p>Temperature: ${data.list[i].main.temp} °F</p>
         <p>Wind Speed: ${data.list[i].wind.speed} MPH</p>
         <p>Humidity: ${data.list[i].main.humidity} %</p>
