@@ -6,13 +6,13 @@ var userInput = document.getElementById("userInput");
 var submitBtn = document.getElementById("submit-btn");
 var currentWeatherContainer = document.getElementById("currentWeatherContainer");
 var currentWeather = document.getElementById("currentWeather");
-var city= document.getElementById("city");
-var  date= document.getElementById ("date");
-var temp= document.getElementById ("temp");
-var wind= document.getElementById ("wind");
-var humidity= document.getElementById ("humidity");
-var nextWeather= document.getElementById ("nextWeather");
-var nextWeatherContainer= document.getElementById ("nextWeatherContainer");
+var city = document.getElementById("city");
+var date = document.getElementById("date");
+var temp = document.getElementById("temp");
+var wind = document.getElementById("wind");
+var humidity = document.getElementById("humidity");
+var nextWeather = document.getElementById("nextWeather");
+var nextWeatherContainer = document.getElementById("nextWeatherContainer");
 var nextDate = document.getElementById("nextDate");
 var nextTemp = document.getElementById("nextTemp");
 var nextWind = document.getElementById("nextWind");
@@ -62,14 +62,14 @@ function getCurrentWeather(lat, lon) {
 
 
 // function to display data in currentWeatherContainer
-var displayCurrentWeather= function (data){
+var displayCurrentWeather = function (data) {
     city.textContent = data.name;
     date.textContent = dayjs.unix(data.dt).format('MM/DD/YYYY');
     temp.textContent = "Temperature: " + data.main.temp + " °F";
     wind.textContent = "Wind Speed: " + data.wind.speed + " MPH";
     humidity.textContent = "Humidity: " + data.main.humidity + " %";
 }
-console.log (displayCurrentWeather);
+console.log(displayCurrentWeather);
 
 //fba06e5080ea71f1a51acc6fdb02dafb
 // 5 day weather forecast API Key
@@ -99,7 +99,7 @@ function getCoords(city) {
 }
 
 
-// function to display 5 day forecast in nextWeatherContainer
+// function to get 5 day forecast 
 function getNextWeather(lat, lon) {
     var url = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=fba06e5080ea71f1a51acc6fdb02dafb&units=imperial"
     console.log(url);
@@ -116,22 +116,18 @@ function getNextWeather(lat, lon) {
 }
 
 // function to display data in NextWeatherContainer
-var displayNextWeather= function (data){
+var displayNextWeather = function (data) {
     nextWeatherContainer.innerHTML = ""; // Clear the forecast container
     for (let i = 0; i < data.list.length; i++) {
-        var forecastPeriod= document.createElement("section");
+        var forecastPeriod = document.createElement("section");
         forecastPeriod.innerHTML = `
         <h2>${dayjs.unix(data.list[i].dt).format('MM/DD/YYYY')}</h2>
         <p>Temperature: ${data.list[i].main.temp} °F</p>
         <p>Wind Speed: ${data.list[i].wind.speed} MPH</p>
         <p>Humidity: ${data.list[i].main.humidity} %</p>
     `;
-    nextWeatherContainer.appendChild(forecastPeriod);
-    // date.textContent = dayjs.unix(data.dt).format('MM/DD/YYYY');
-    // temp.textContent = "Temperature: " + data.main.temp + " °F";
-    // wind.textContent = "Wind Speed: " + data.wind.speed + " MPH";
-    // humidity.textContent = "Humidity: " + data.main.humidity + " %";
+        nextWeatherContainer.appendChild(forecastPeriod);
+    }
 }
-}
-console.log (displayNextWeather);
+console.log(displayNextWeather);
 // use bootstrap to style
