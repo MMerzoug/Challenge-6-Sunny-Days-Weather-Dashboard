@@ -9,7 +9,9 @@
 </head>
 
 <body>
-
+    <header>
+        <h1>Sunny Days Weather Dashboard</h1>
+    </header>
     <input type="text" id="userInput">
     <button id="submit-btn">
         Submit
@@ -17,13 +19,22 @@
 
     <section id="currentWeather">
         <h1 id="city"></h1>
-        <h2 id="date"></h2>
+        <h1 id="date"></h1>
+    
         <h3 id="temp"></h3>
         <h3 id="wind"></h3>
         <h3 id="humidity"></h3>
     </section>
 
-    <section id="forecast5d"></section>
+    <section id="nextWeather">
+     <h2>5-Day Forecast</h2>
+       
+            <h3 id="date"></h3>
+            <h3 id="temp"></h3>
+            <h3 id="wind"></h3>
+            <h3 id="humidity"></h3>
+       
+    </section>
 
     <script src="https://unpkg.com/dayjs/dayjs.min.js"></script>
     <script src="./assets/script.js"></script>
