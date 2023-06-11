@@ -49,7 +49,7 @@ function appendCitiesList() {
 function getCoords(city) {
     // geocoding API Call
     // http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}
-    var url = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&appid=fba06e5080ea71f1a51acc6fdb02dafb"
+    var url = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + "&appid=fba06e5080ea71f1a51acc6fdb02dafb"
 
     fetch(url)
         .then(function (response) {
