@@ -6,36 +6,65 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sunny Days Weather Dashboard</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./assets/style.css" rel="stylesheet">
 </head>
 
 <body>
-    <header>
-        <h1>Sunny Days Weather Dashboard</h1>
-    </header>
-    <input type="text" id="userInput">
-    <button id="submit-btn">
-        Submit
-    </button>
+    <div class="containerHeader">
+        <header class="my-custom-class">
+            <h1 class="text-center h2">Sunny Days Weather Dashboard</h1>
+        </header>
+    </div>
 
-    <section id="appendCitiesList">
-    </section>
+    <!-- Wrap the input and city list inside a row using bootstrap grid system-->
+    <div class="row">
+        <!-- This column will take up 25% of the page -->
+        <div class="col-3">
+            <div class="input-group mb-3">
+                <input type="text" id="userInput" class="form-control" placeholder="Search for a city">
+                <div class="input-group-append">
+                    <button id="submit-btn" class="btn btn-outline-secondary" type="button">
+                        Submit
+                    </button>
+                </div>
+            </div>
+            <section class="card mb-3" id="appendCitiesList">
+            </section>
+        </div>
 
-    <section id="currentWeather">
-        <h1 id="city"></h1>
-        <h1 id="date"></h1>
-    
-        <h3 id="temp"></h3>
-        <h3 id="wind"></h3>
-        <h3 id="humidity"></h3>
-    </section>
+        <!-- This empty column will take up the remaining 75% of the page -->
+        <div class="col-9">
 
-    <section id="nextWeather">
-        <h2>5-Day Forecast</h2>
-        <div id="nextWeatherContainer"></div>
-    </section>
-    
-    <script src="https://unpkg.com/dayjs/dayjs.min.js"></script>
-    <script src="./assets/script.js"></script>
+            <div class="card">
+                <section class="card-body custom-font-size" id="currentWeather">
+                    <h1 id="city"></h1>
+                    <h3 id="date"></h3>
+                    <p id="temp"></p>
+                    <p id="wind"></p>
+                    <p id="humidity"></p>
+                </section>
+            </div>
+
+            <section class="card-header" id="nextWeather">
+                <h2>5-Day Forecast</h2>
+                <div class="card-body" id="nextWeatherContainer">
+                    <div class="row">
+                        <div class="col-2" id="day1"></div>
+                        <div class="col-2" id="day2"></div>
+                        <div class="col-2" id="day3"></div>
+                        <div class="col-2" id="day4"></div>
+                        <div class="col-2" id="day5"></div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://unpkg.com/dayjs/dayjs.min.js"></script>
+        <script src="./assets/script.js"></script>
 </body>
 
 </html>

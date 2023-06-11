@@ -24,6 +24,13 @@ submitBtn.addEventListener("click", function () {
     userInput.value = "";
 });
 
+userInput.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+        getCoords(userInput.value);
+        userInput.value = "";
+    }
+});
+
 function appendCitiesList() {
     citiesListContainer.innerHTML = "";
     for (let i = 0; i < cityStorage.length; i++) {
@@ -42,7 +49,7 @@ function getCoords(city) {
     // geocoding API Call
     // http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}
     var url = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&appid=fba06e5080ea71f1a51acc6fdb02dafb"
-  
+
     fetch(url)
         .then(function (response) {
             return response.json();
@@ -55,9 +62,9 @@ function getCoords(city) {
                 var lat = data[0].lat;
                 var lon = data[0].lon;
                 getCurrentWeather(lat, lon);
-                getNextWeather (lat,lon);
+                getNextWeather(lat, lon);
             } else {
-                alert ("City not found. Please enter a valid city name.")
+                alert("City not found. Please enter a valid city name.")
             }
         });
 }
@@ -68,7 +75,6 @@ function getCoords(city) {
 //function to get current weather using the API call
 function getCurrentWeather(lat, lon) {
     var url = "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&appid=fba06e5080ea71f1a51acc6fdb02dafb&units=imperial"
-    console.log(url);
 
     fetch(url)
         .then(function (response) {
@@ -81,10 +87,15 @@ function getCurrentWeather(lat, lon) {
 }
 
 
+
 // function to display data in currentWeatherContainer
 var displayCurrentWeather = function (data) {
     city.textContent = data.name;
-    date.innerHTML = dayjs.unix(data.dt).format("dddd") + "<br>" + "<br>" + dayjs.unix(data.dt).format("MM/DD/YYYY");
+
+    var weatherDescription = data.weather[0].main; // Get the weather description
+    var weatherEmoji = getWeatherEmoji(weatherDescription); // Get the corresponding emoji
+
+    date.innerHTML = dayjs.unix(data.dt).format("dddd") + "<br>" + "<br>" + dayjs.unix(data.dt).format("MM/DD/YYYY")+ " " + weatherEmoji;
     temp.textContent = "Temperature: " + data.main.temp + " °F";
     wind.textContent = "Wind Speed: " + data.wind.speed + " MPH";
     humidity.textContent = "Humidity: " + data.main.humidity + " %";
@@ -104,7 +115,6 @@ var displayCurrentWeather = function (data) {
 // function to get 5 day forecast 
 function getNextWeather(lat, lon) {
     var url = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=fba06e5080ea71f1a51acc6fdb02dafb&units=imperial"
-    console.log(url);
 
     fetch(url)
         .then(function (response) {
@@ -113,24 +123,63 @@ function getNextWeather(lat, lon) {
         }).then(function (data) {
             // Call the function to display the weather data
             displayNextWeather(data);
-            console.log(data);
         });
 }
+
+var getWeatherEmoji = function(description) {
+    description = description.toLowerCase();
+
+    if (description.includes("clouds")) {
+        return "☁️";
+    } else if (description.includes("clear")) {
+        return "☀️";
+    } else if (description.includes("drizzle") || description.includes("rain")) {
+        return "🌧️";
+    } else if (description.includes("thunderstorm")) {
+        return "⛈️";
+    } else if (description.includes("snow")) {
+        return "❄️";
+    } else if (description.includes("mist")) {
+        return "🌫️";
+    } else if (description.includes("wind")) {
+        return "💨";
+    } else {
+        return "";  // Default case
+    }
+}
+
 
 // function to display data in NextWeatherContainer
 var displayNextWeather = function (data) {
     nextWeatherContainer.innerHTML = ""; // Clear the forecast container
+
+    var forecastRow = document.createElement("div");
+    forecastRow.className = "row five-columns";
+
     for (let i = 2; i < data.list.length; i += 8) {
+
+        var weatherDescription = data.list[i].weather[0].main; // Get the weather description
+        var weatherEmoji = getWeatherEmoji(weatherDescription); // Get the corresponding emoji
+
         var forecastPeriod = document.createElement("section");
+        forecastPeriod.className = "col"; // Added to have bootstrap styles
+        
         forecastPeriod.innerHTML = `
-        <h2>${dayjs.unix(data.list[i].dt).format('dddd')}</h2>
-        <h2>${dayjs.unix(data.list[i].dt).format('MM/DD/YYYY')}</h2>
-        <p>Temperature: ${data.list[i].main.temp} °F</p>
-        <p>Wind Speed: ${data.list[i].wind.speed} MPH</p>
-        <p>Humidity: ${data.list[i].main.humidity} %</p>
+        <div class="card">
+            <div class="card-body">
+                <h4>${dayjs.unix(data.list[i].dt).format('dddd')}</h4>
+                <h4>${dayjs.unix(data.list[i].dt).format('MM/DD/YYYY')}</h4>
+                <p>Weather: ${weatherEmoji}</p> <!-- Add the weather emoji to the card -->
+                <p>Temperature: ${data.list[i].main.temp} °F</p>
+                <p>Wind Speed: ${data.list[i].wind.speed} MPH</p>
+                <p>Humidity: ${data.list[i].main.humidity} %</p>
+            </div>
+        </div>
     `;
-        nextWeatherContainer.appendChild(forecastPeriod);
+        forecastRow.appendChild(forecastPeriod);
     }
+
+    nextWeatherContainer.appendChild(forecastRow);
 }
 
-// use bootstrap to style
+console.log (displayNextWeather);
