@@ -8,14 +8,15 @@
 - [Features](#features)
 - [Usage](#usage)
 - [Collaborators](#collaborators)
-- [Contributing](#contributing)
 - [License](#license)
 
 ## Description
 
 The Sunny Days Weather Dashboard is a responsive application that provides users with current and future weather conditions for a selected city. The application is designed with a clean user interface for an optimized user experience.
 
-Check out the live application [here](your-live-app-url).
+Check out the live application [here](https://mmerzoug.github.io/Challenge-6-Sunny-Days-Weather-Dashboard/).
+
+Check out the GitHub repository [here] (https://github.com/MMerzoug/Challenge-6-Sunny-Days-Weather-Dashboard.git).
 
 ## Features
 
@@ -37,10 +38,6 @@ Check out the live application [here](your-live-app-url).
 - Tutors
 - [MDN Web Docs](https://developer.mozilla.org/)
 - [Stack Overflow](https://stackoverflow.com/)
-
-## Contributing
-
-Contributions, issues and feature requests are welcome. Feel free to check [issues page](your-issues-page-url) if you want to contribute.
 
 ## License
 
