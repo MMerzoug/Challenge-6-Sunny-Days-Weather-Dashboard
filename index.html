@@ -21,22 +21,26 @@
     <div class="row">
         <!-- This column will take up 25% of the page -->
         <div class="col-3">
-            <div class="input-group mb-3">
-                <input type="text" id="userInput" class="form-control" placeholder="Search for a city">
-                <div class="input-group-append">
-                    <button id="submit-btn" class="btn btn-outline-secondary" type="button">
-                        Submit
-                    </button>
+            <div class="boxLine">
+                <h1>Search for a City:</h1>
+                <div class="input-group mb-3">
+                    <input type="text" id="userInput" class="form-control" placeholder="Search for a city">
+                    <div class="input-group-append">
+
+                    </div>
                 </div>
+                <button id="submit-btn" class="btn btn-outline-secondary btn-block" type="button" style="color:white;">
+                    Submit
+                </button>
             </div>
-            <section class="card mb-3" id="appendCitiesList">
+            <section class="cardCity mb-3" id="appendCitiesList">
             </section>
         </div>
 
         <!-- This empty column will take up the remaining 75% of the page -->
         <div class="col-9">
 
-            <div class="card">
+            <div class="cardCurrent">
                 <section class="card-body custom-font-size" id="currentWeather">
                     <h1 id="city"></h1>
                     <h3 id="date"></h3>

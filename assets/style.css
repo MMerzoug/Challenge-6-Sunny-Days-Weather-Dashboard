@@ -9,3 +9,37 @@
     font-size: 100%; /* Change the value to what you need */
 }
 
+.card { 
+    background-color: #3d3d72;
+    color: white;
+}
+
+#submit-btn {
+    background-color: rgb(98, 144, 225);
+    color: white;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.btn {
+    background-color: rgb(170, 178, 187);
+    margin-top: 5%;
+   
+}
+
+h2 {
+    font-weight: bold;
+}
+
+h1 {
+    font-weight: bold;
+}
+
+#currentWeather {
+    border-style: solid;
+}
+
+.boxLine {
+    border-bottom: solid;
+   
+}

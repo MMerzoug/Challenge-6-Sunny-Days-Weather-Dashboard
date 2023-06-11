@@ -36,6 +36,7 @@ function appendCitiesList() {
     for (let i = 0; i < cityStorage.length; i++) {
         let cityName = cityStorage[i]
         var cityButton = document.createElement("button");
+        cityButton.classList.add("btn", "w-100");
         cityButton.innerHTML = cityName
         cityButton.onclick = function () {
             getCoords(cityName);
@@ -95,7 +96,9 @@ var displayCurrentWeather = function (data) {
     var weatherDescription = data.weather[0].main; // Get the weather description
     var weatherEmoji = getWeatherEmoji(weatherDescription); // Get the corresponding emoji
 
-    date.innerHTML = dayjs.unix(data.dt).format("dddd") + "<br>" + "<br>" + dayjs.unix(data.dt).format("MM/DD/YYYY")+ " " + weatherEmoji;
+    city.innerHTML = data.name + " " + 
+                     dayjs.unix(data.dt).format("(MM/DD/YYYY)") + " " + 
+                     weatherEmoji;
     temp.textContent = "Temperature: " + data.main.temp + " °F";
     wind.textContent = "Wind Speed: " + data.wind.speed + " MPH";
     humidity.textContent = "Humidity: " + data.main.humidity + " %";
@@ -169,9 +172,9 @@ var displayNextWeather = function (data) {
             <div class="card-body">
                 <h4>${dayjs.unix(data.list[i].dt).format('dddd')}</h4>
                 <h4>${dayjs.unix(data.list[i].dt).format('MM/DD/YYYY')}</h4>
-                <p>Weather: ${weatherEmoji}</p> <!-- Add the weather emoji to the card -->
-                <p>Temperature: ${data.list[i].main.temp} °F</p>
-                <p>Wind Speed: ${data.list[i].wind.speed} MPH</p>
+                <p>${weatherEmoji}</p> <!-- Add the weather emoji to the card -->
+                <p>Temp: ${data.list[i].main.temp} °F</p>
+                <p>Wind: ${data.list[i].wind.speed} MPH</p>
                 <p>Humidity: ${data.list[i].main.humidity} %</p>
             </div>
         </div>
